@@ -1,9 +1,16 @@
 package se.kth.sda5.serena.dto;
 
+import javax.persistence.*;
 import java.io.Serializable;
 
+@Entity
 public class Status implements Serializable {
+
+    @Id
+    @Column(name = "status_id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+    @Column(name = "name")
     private String name;
 
     public Status(){}

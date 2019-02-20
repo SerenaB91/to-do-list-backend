@@ -1,11 +1,22 @@
 package se.kth.sda5.serena.dto;
 
+import javax.persistence.*;
 import java.io.Serializable;
 
+@Entity
 public class Member implements Serializable {
+
+    @Id
+    @Column(name = "member_id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+    @ManyToOne
+    @JoinColumn(name = "user_id")
     private User user;
+    @ManyToOne
+    @JoinColumn(name = "project_id")
     private Project project;
+    @Column(name = "owner")
     private boolean owner;
 
     public Member(){}

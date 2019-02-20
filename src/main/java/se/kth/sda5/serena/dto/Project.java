@@ -1,11 +1,19 @@
 package se.kth.sda5.serena.dto;
 
+import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
 
+@Entity
 public class Project implements Serializable {
+
+    @Id
+    @Column(name = "project_id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+    @Column(name = "name")
     private String name;
+    @Column(name = "description")
     private String description;
 
     public Project(){}

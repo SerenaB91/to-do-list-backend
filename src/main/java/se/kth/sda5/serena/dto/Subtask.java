@@ -1,14 +1,27 @@
 package se.kth.sda5.serena.dto;
 
+import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
 
+@Entity
 public class Subtask implements Serializable{
+
+    @Id
+    @Column(name = "subtask_id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+    @Column(name = "name")
     private String name;
+    @Column(name = "created")
     private Date creationDate;
+    @Column(name = "due")
     private Date dueDate;
+    @ManyToOne
+    @JoinColumn(name = "status_id")
     private Status status;
+    @ManyToOne
+    @JoinColumn(name = "task_id")
     private Task task;
 
     public Subtask(){}
