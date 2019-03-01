@@ -4,18 +4,30 @@ import se.kth.sda5.serena.dto.*;
 import se.kth.sda5.serena.hibernate.util.HibernateQuery;
 import sun.java2d.StateTrackableDelegate;
 
+import java.text.ParseException;
 import java.util.Calendar;
 import java.util.Date;
 
 public class MainProgram {
-    public static void main(String[] args) {
-        User user = new User();
+    public static void main(String[] args) throws ParseException {
+        Menu menu = new Menu();
+        menu.run();
+
+        /*User user = new User();
         user.setEmail("serenabarakat2@gmail.com");
         user.setFirstName("Serena");
         user.setLastName("Barakat");
         user.setPassword("1234");
         user.setCreated(new Date());
         HibernateQuery.addUser(user);
+
+        User user2 = new User();
+        user2.setEmail("serenabarakat2@gmail.com");
+        user2.setFirstName("Serena");
+        user2.setLastName("Barakat");
+        user2.setPassword("1234");
+        user2.setCreated(new Date());
+        HibernateQuery.addUser(user2);
 
         Project project = new Project();
         project.setName("Build The Villa");
@@ -63,5 +75,9 @@ public class MainProgram {
         subtask.setStatus(status);
         subtask.setTask(task);
         HibernateQuery.addSubtask(subtask);
+
+        HibernateQuery.displayRecords();
+
+        HibernateQuery.readById(2); */
     }
 }
