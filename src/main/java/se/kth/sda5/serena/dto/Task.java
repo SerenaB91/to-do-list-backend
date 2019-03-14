@@ -2,7 +2,9 @@ package se.kth.sda5.serena.dto;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 public class Task implements Serializable {
@@ -19,12 +21,17 @@ public class Task implements Serializable {
     private Date creationDate;
     @Column(name = "due")
     private Date dueDate;
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
     @JoinColumn(name = "status_id")
     private Status status;
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
     @JoinColumn(name = "project_id")
     private Project project;
+    @ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
+    @JoinColumn(name = "user_id")
+    private User user;
+    @OneToMany(mappedBy = "task", cascade = CascadeType.PERSIST, orphanRemoval = true)
+    private List<Subtask> subtask = new ArrayList<Subtask>();
 
     public Task(){}
 
@@ -101,5 +108,15 @@ public class Task implements Serializable {
     public void setProject(Project project){
 
         this.project = project;
+    }
+
+    public User getUser(){
+
+        return user;
+    }
+
+    public void setUser(User user){
+
+        this.user = user;
     }
 }

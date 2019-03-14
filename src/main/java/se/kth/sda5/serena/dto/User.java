@@ -21,6 +21,8 @@ public class User implements Serializable {
     private String password;
     @Column(name = "created")
     private Date creationDate;
+    @Column(name = "role")
+    private String userRole;
 
     public User(){}
 
@@ -77,5 +79,11 @@ public class User implements Serializable {
 
     public void setCreated(Date creationDate) {
         this.creationDate = creationDate;
+    }
+
+    public String getRole() { return userRole; }
+
+    public void setRole(String userRole) {
+        this.userRole = userRole;
     }
 }

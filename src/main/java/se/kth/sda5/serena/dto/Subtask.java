@@ -20,7 +20,7 @@ public class Subtask implements Serializable{
     @ManyToOne
     @JoinColumn(name = "status_id")
     private Status status;
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER,cascade = CascadeType.ALL)
     @JoinColumn(name = "task_id")
     private Task task;
 

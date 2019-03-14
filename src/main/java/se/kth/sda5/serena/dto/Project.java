@@ -15,6 +15,14 @@ public class Project implements Serializable {
     private String name;
     @Column(name = "description")
     private String description;
+    @Column(name = "created")
+    private Date creationDate;
+    @ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
+    @JoinColumn(name = "user_id")
+    private User user;
+    @ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
+    @JoinColumn(name = "member")
+    private Member member;
 
     public Project(){}
 
@@ -47,5 +55,34 @@ public class Project implements Serializable {
         this.description = description;
     }
 
+    public Date getCreated() {
+
+        return creationDate;
+    }
+
+    public void setCreated(Date creationDate) {
+
+        this.creationDate = creationDate;
+    }
+
+    public User getUser(){
+
+        return user;
+    }
+
+    public void setUser(User user){
+
+        this.user = user;
+    }
+
+    public Member getMember(){
+
+        return member;
+    }
+
+    public void setMember(Member member){
+
+        this.member = member;
+    }
 
 }
