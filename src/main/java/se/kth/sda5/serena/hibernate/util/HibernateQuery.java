@@ -138,6 +138,16 @@ public class HibernateQuery {
         session.close();
     }
 
+    public static void deleteUser(String email, String password){
+        Session session = HibernateSessionFactory.getSessionFactory().openSession();
+        Transaction transaction = session.beginTransaction();
+        validateLogin(email, password);
+        session.delete(Menu.loginUser);
+        session.getTransaction().commit();
+        System.out.println(transaction.wasCommitted());
+        session.close();
+    }
+
     public static List<Task> getByProID(Project project){
         Session session = HibernateSessionFactory.getSessionFactory().openSession();
         Criteria cr = session.createCriteria(Task.class);
