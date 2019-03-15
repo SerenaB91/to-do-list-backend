@@ -1,2 +1,14 @@
 # to-do-list-backend
-A todo-list that supports the ability to add, edit, mark as done, or remove tasks.
+An interactive to-do list java maven project that runs in the console.
+The system is connected to a database using Hibernate.
+There are three user roles: Administrator, Project Manager and Employee. Must add Administrator user type first.
+Functionality includes: 
+  *Add a user.
+  *Set a list of statuses.
+  *Create project.
+  *Create task.
+  *Create subtask.
+  *Filter projects and tasks by user.
+  *Filter tasks by project.
+  *Sort tasks by due date.
+  *Edit tasks.

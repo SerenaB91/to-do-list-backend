@@ -33,39 +33,40 @@ public class Task implements Serializable {
     @OneToMany(mappedBy = "task", cascade = CascadeType.PERSIST, orphanRemoval = true)
     private List<Subtask> subtask = new ArrayList<Subtask>();
 
-    public Task(){}
+    public Task() {
+    }
 
-    public Task(String name, String description){
+    public Task(String name, String description) {
         this.name = name;
         this.description = description;
     }
 
-    public int getId(){
+    public int getId() {
 
         return id;
     }
 
-    public void setId(int id){
+    public void setId(int id) {
 
         this.id = id;
     }
 
-    public String getName(){
+    public String getName() {
 
         return name;
     }
 
-    public void setName(String name){
+    public void setName(String name) {
 
         this.name = name;
     }
 
-    public String getDescription(){
+    public String getDescription() {
 
         return description;
     }
 
-    public void setDescription(String description){
+    public void setDescription(String description) {
 
         this.description = description;
     }
@@ -80,43 +81,55 @@ public class Task implements Serializable {
         this.creationDate = creationDate;
     }
 
-    public Date getDueDate(){
+    public Date getDueDate() {
 
         return dueDate;
     }
 
-    public void setDueDate(Date dueDate){
+    public void setDueDate(Date dueDate) {
 
         this.dueDate = dueDate;
     }
 
-    public Status getStatus(){
+    public Status getStatus() {
 
         return status;
     }
 
-    public void setStatus(Status status){
+    public void setStatus(Status status) {
 
         this.status = status;
     }
 
-    public Project getProject(){
+    public Project getProject() {
 
         return project;
     }
 
-    public void setProject(Project project){
+    public void setProject(Project project) {
 
         this.project = project;
     }
 
-    public User getUser(){
+    public User getUser() {
 
         return user;
     }
 
-    public void setUser(User user){
+    public void setUser(User user) {
 
         this.user = user;
+    }
+
+    @Override
+    public String toString() {
+        return "Task{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", description='" + description + '\'' +
+                ", creationDate=" + creationDate +
+                ", dueDate=" + dueDate +
+                ", status=" + status +
+                '}';
     }
 }

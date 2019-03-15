@@ -1,44 +1,47 @@
 package se.kth.sda5.serena.hibernate.util;
 
-import com.sun.tools.javac.jvm.CRTable;
-import org.hibernate.*;
+
+import org.hibernate.Criteria;
+import org.hibernate.Hibernate;
+import org.hibernate.Session;
+import org.hibernate.Transaction;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 import se.kth.sda5.serena.dto.*;
 import se.kth.sda5.serena.todo.program.Menu;
 
-import javax.persistence.criteria.CriteriaBuilder;
-import java.util.ArrayList;
 import java.util.List;
 
 public class HibernateQuery {
 
-    public static void addObject(Class className, Object object){
+    /**
+     * Used to insert an object in the database.
+     *
+     * @param className
+     * @param object
+     */
+    public static void addObject(Class className, Object object) {
 
         Session session = HibernateSessionFactory.getSessionFactory().openSession();
         Transaction transaction = null;
         Integer id = null;
         transaction = session.beginTransaction();
-        if(className.getName().equals("se.kth.sda5.serena.dto.Task")){
+        if (className.getName().equals("se.kth.sda5.serena.dto.Task")) {
             Task task = (Task) object;
             id = (Integer) session.save(task);
-        }else if(className.getName().equals("se.kth.sda5.serena.dto.Subtask")){
+        } else if (className.getName().equals("se.kth.sda5.serena.dto.Subtask")) {
             Subtask subtask = (Subtask) object;
             id = (Integer) session.save(subtask);
-        }
-        else if(className.getName().equals("se.kth.sda5.serena.dto.Member")){
+        } else if (className.getName().equals("se.kth.sda5.serena.dto.Member")) {
             Member member = (Member) object;
             id = (Integer) session.save(member);
-        }
-        else if(className.getName().equals("se.kth.sda5.serena.dto.Status")){
+        } else if (className.getName().equals("se.kth.sda5.serena.dto.Status")) {
             Status status = (Status) object;
             id = (Integer) session.save(status);
-        }
-        else if(className.getName().equals("se.kth.sda5.serena.dto.User")){
+        } else if (className.getName().equals("se.kth.sda5.serena.dto.User")) {
             User user = (User) object;
             id = (Integer) session.save(user);
-        }
-        else if(className.getName().equals("se.kth.sda5.serena.dto.Project")){
+        } else if (className.getName().equals("se.kth.sda5.serena.dto.Project")) {
             Project project = (Project) object;
             id = (Integer) session.save(project);
         }
@@ -46,19 +49,47 @@ public class HibernateQuery {
         session.close();
     }
 
+    /**
+     * Used to get all data of a specific class from the database and stores it as a list.
+     *
+     * @param c
+     * @return list
+     */
     public static List getAllData(Class c) {
         Session session = HibernateSessionFactory.getSessionFactory().openSession();
         List list = session.createCriteria(c).list();
         return list;
     }
 
-    public static Task getTaskById(Integer taskId) {
+    /**
+     * Used to retrieve an object from the database based on a specific id.
+     *
+     * @param className
+     * @param id
+     * @return object
+     */
+    public static Object getObjectById(Class className, int id) {
         Session session = null;
-        Task task = null;
+        Object object = null;
         try {
             session = HibernateSessionFactory.getSessionFactory().openSession();
-            task = (Task) session.load(Task.class, taskId);
-            Hibernate.initialize(task);
+            if (className.getName().equals("se.kth.sda5.serena.dto.Task")) {
+
+                object = session.load(Task.class, id);
+
+            } else if (className.getName().equals("se.kth.sda5.serena.dto.Subtask")) {
+                object = session.load(Subtask.class, id);
+            } else if (className.getName().equals("se.kth.sda5.serena.dto.Member")) {
+                object = session.load(Member.class, id);
+            } else if (className.getName().equals("se.kth.sda5.serena.dto.Status")) {
+                object = session.load(Status.class, id);
+            } else if (className.getName().equals("se.kth.sda5.serena.dto.User")) {
+                object = session.load(User.class, id);
+            } else if (className.getName().equals("se.kth.sda5.serena.dto.Project")) {
+                object = session.load(Project.class, id);
+            }
+
+            Hibernate.initialize(object);
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
@@ -66,59 +97,16 @@ public class HibernateQuery {
                 session.close();
             }
         }
-        return task;
+        return object;
+
     }
 
-    public static Status getStatusById(Integer sId) {
-        Session session = null;
-        Status status = null;
-        try {
-            session = HibernateSessionFactory.getSessionFactory().openSession();
-            status = (Status) session.load(Status.class, sId);
-            Hibernate.initialize(status);
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            if (session != null && session.isOpen()) {
-                session.close();
-            }
-        }
-        return status;
-    }
-
-    public static Project getProjectById(Integer pId) {
-        Session session = null;
-        Project project = null;
-        try {
-            session = HibernateSessionFactory.getSessionFactory().openSession();
-            project = (Project) session.load(Project.class, pId);
-            Hibernate.initialize(project);
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            if (session != null && session.isOpen()) {
-                session.close();
-            }
-        }
-        return project;
-    }
-    public static User getUserById(Integer userId) {
-        Session session = null;
-        User user = null;
-        try {
-            session = HibernateSessionFactory.getSessionFactory().openSession();
-            user = (User) session.load(User.class, userId);
-            Hibernate.initialize(user);
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            if (session != null && session.isOpen()) {
-                session.close();
-            }
-        }
-        return user;
-    }
-    public static void updateStatus(Task task){
+    /**
+     * Updates the status of a task.
+     *
+     * @param task
+     */
+    public static void updateStatus(Task task) {
         Session session = HibernateSessionFactory.getSessionFactory().openSession();
         session.beginTransaction();
         session.update(task);
@@ -126,19 +114,29 @@ public class HibernateQuery {
         session.close();
     }
 
+    /**
+     * Deletes a task.
+     *
+     * @param taskID
+     */
     public static void deleteTask(int taskID) {
         Session session = HibernateSessionFactory.getSessionFactory().openSession();
         Transaction transaction = session.beginTransaction();
 
-        Task t =(Task) session.get(Task.class,taskID);
-        // t.getSubtask().remove(0);
+        Task t = (Task) session.get(Task.class, taskID);
         session.delete(t);
         session.getTransaction().commit();
         System.out.println(transaction.wasCommitted());
         session.close();
     }
 
-    public static void deleteUser(String email, String password){
+    /**
+     * Deletes a user.
+     *
+     * @param email
+     * @param password
+     */
+    public static void deleteUser(String email, String password) {
         Session session = HibernateSessionFactory.getSessionFactory().openSession();
         Transaction transaction = session.beginTransaction();
         validateLogin(email, password);
@@ -148,7 +146,13 @@ public class HibernateQuery {
         session.close();
     }
 
-    public static List<Task> getByProID(Project project){
+    /**
+     * Criteria query to list tasks specific to a certain project.
+     *
+     * @param project
+     * @return
+     */
+    public static List<Task> getByProID(Project project) {
         Session session = HibernateSessionFactory.getSessionFactory().openSession();
         Criteria cr = session.createCriteria(Task.class);
         cr.add(Restrictions.eq("project", project));
@@ -156,7 +160,13 @@ public class HibernateQuery {
         return cr.list();
     }
 
-    public static List<Task> getByUserID(User user){
+    /**
+     * Criteria query to list tasks specific to a certain user.
+     *
+     * @param user
+     * @return
+     */
+    public static List<Task> getByUserID(User user) {
         Session session = HibernateSessionFactory.getSessionFactory().openSession();
         Criteria cr = session.createCriteria(Task.class);
         cr.add(Restrictions.eq("user", user));
@@ -164,7 +174,13 @@ public class HibernateQuery {
         return cr.list();
     }
 
-    public static List<Project> projectByUserID(User user){
+    /**
+     * Criteria query to list projects specific to a certain user.
+     *
+     * @param user
+     * @return
+     */
+    public static List<Project> projectByUserID(User user) {
         Session session = HibernateSessionFactory.getSessionFactory().openSession();
         Criteria cr = session.createCriteria(Project.class);
         cr.add(Restrictions.eq("user", user));
@@ -172,41 +188,54 @@ public class HibernateQuery {
         return cr.list();
     }
 
-    public static List<Task> getByDate(Task task){
+    /**
+     * Criteria query that lists tasks in ascending order of due date.
+     *
+     * @param task
+     * @return
+     */
+    public static List<Task> getByDate(Task task) {
         Session session = HibernateSessionFactory.getSessionFactory().openSession();
         Criteria cr = session.createCriteria(Task.class);
         cr.addOrder(Order.asc("dueDate"));
         return cr.list();
     }
 
-    public static boolean checkEmailExist(String email){
+    /**
+     * Checks if email already exists in the database.
+     *
+     * @param email
+     * @return
+     */
+    public static boolean checkEmailExist(String email) {
         Session session = HibernateSessionFactory.getSessionFactory().openSession();
         Criteria cr = session.createCriteria(User.class);
         List email1 = cr.add(Restrictions.eq("email", email)).list();
-        if(email1.size() != 0) {
+        if (email1.size() != 0) {
             return true;
         }
         return false;
     }
 
-    /*public static  boolean validateLogin(String email, String password){
-        Session session = HibernateSessionFactory.getSessionFactory().openSession();
-        Criteria cr = session.createCriteria(User.class);
-        List login = cr.add(Restrictions.eq("email", email)).add(Restrictions.eq("password", password)).list();
-        if(login.size() != 0){
-            return true;
-        }return false;
-    }*/
-    public static  boolean validateLogin(String email, String password){
+
+    /**
+     * Validates login credentials.
+     *
+     * @param email
+     * @param password
+     * @return
+     */
+    public static boolean validateLogin(String email, String password) {
         Session session = HibernateSessionFactory.getSessionFactory().openSession();
         Criteria cr = session.createCriteria(User.class);
         List emailLogin = cr.add(Restrictions.eq("email", email)).list();
-        if(emailLogin.size() != 0) {
+        if (emailLogin.size() != 0) {
             List passwordLogin = cr.add(Restrictions.eq("password", password)).list();
-            if(passwordLogin.size() != 0){
+            if (passwordLogin.size() != 0) {
                 Menu.loginUser = (User) passwordLogin.get(0);
                 return true;
-            }return false;
+            }
+            return false;
         }
         return false;
     }

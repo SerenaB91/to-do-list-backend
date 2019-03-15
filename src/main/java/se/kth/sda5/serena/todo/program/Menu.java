@@ -1,12 +1,9 @@
 package se.kth.sda5.serena.todo.program;
 
-import jdk.nashorn.internal.objects.NativeArray;
 import se.kth.sda5.serena.dto.*;
 import se.kth.sda5.serena.hibernate.util.HibernateQuery;
 import se.kth.sda5.serena.hibernate.util.Validation;
 
-import java.awt.peer.SystemTrayPeer;
-import java.security.SecureRandom;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -31,16 +28,20 @@ public class Menu {
 
     private static final DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
 
+    /**
+     * Menu functionality for todo list
+     *
+     * @throws ParseException
+     */
     public void run() throws ParseException {
         int command;
-        //login
+        //if a user already exists in database then, if not then create user
         if (!userData.isEmpty()) {
-            System.out.println("Welcome back, login: ");
+            System.out.println("Welcome back, login to your account: ");
             boolean emailValid = false;
             do {
-                System.out.println("enter your email: ");
+                System.out.println("enter your email (example@something.com): ");
                 String emailLogin = keyboard.nextLine();
-                keyboard.nextLine();
                 System.out.println("enter you password: ");
                 String passwordLogin = keyboard.nextLine();
                 boolean loginAccepted = HibernateQuery.validateLogin(emailLogin, passwordLogin);
@@ -56,7 +57,7 @@ public class Menu {
 
                                 boolean isValid = false;
                                 do {
-                                    System.out.println("Enter your email");
+                                    System.out.println("Enter your email (example@something.com):");
                                     keyboard.nextLine();
                                     String email = keyboard.nextLine();
                                     if (validation.validateEmail(email)) {
@@ -65,19 +66,19 @@ public class Menu {
                                     }
                                 } while (!isValid);
 
-                                System.out.println("Enter your first name");
+                                System.out.println("Enter your first name:");
                                 String firstName = keyboard.nextLine();
                                 user.setFirstName(firstName);
 
-                                System.out.println("Enter your last name");
+                                System.out.println("Enter your last name:");
                                 String lastName = keyboard.nextLine();
                                 user.setLastName(lastName);
 
-                                System.out.println("Enter your password");
+                                System.out.println("Enter your password:");
                                 String password = keyboard.nextLine();
                                 user.setPassword(password);
 
-                                System.out.println("Is this user a project owner? enter 1 for administrator, 2 for project manager or 3 for employee: ");
+                                System.out.println("What is this user's role? Enter 1 for administrator, 2 for project manager or 3 for employee: ");
                                 String projOwner = keyboard.nextLine();
                                 user.setRole(projOwner);
 
@@ -85,7 +86,6 @@ public class Menu {
 
                                 userInfo.add(user);
                                 HibernateQuery.addObject(User.class, user);
-
 
                                 break;
 
@@ -138,7 +138,7 @@ public class Menu {
                             case 3:  //add statuses
                                 List<Status> statusInfo = new ArrayList<Status>();
 
-                                System.out.println("Add a valid status to be used: ");
+                                System.out.println("Add a valid status  to be used by project managers and employees: ");
                                 keyboard.nextLine();
                                 String statusName = keyboard.nextLine();
                                 status.setName(statusName);
@@ -202,16 +202,11 @@ public class Menu {
 
                                 task.setCreated(new Date());
 
-                    /*System.out.println("please enter the due date (yyyy-MM-dd)");
-                    String dateString = keyboard.next();
-                    SimpleDateFormat  formatter = new SimpleDateFormat("yyyy-MM-dd");
-                    Date date = formatter.parse(dateString);
-                    task.setDueDate(date);*/
-                                System.out.println("enter days required to finish task: ");
+                                System.out.println("Enter days required to finish task: ");
                                 int numberOfDays = keyboard.nextInt();
 
                                 Date currentDate = new Date();
-                                System.out.println(dateFormat.format(currentDate));
+                                System.out.println("Today's date: " + dateFormat.format(currentDate));
 
                                 // convert date to calendar
                                 Calendar c = Calendar.getInstance();
@@ -223,23 +218,22 @@ public class Menu {
                                 // convert calendar to date
                                 Date currentDatePlus = c.getTime();
 
-                                System.out.println(dateFormat.format(currentDatePlus));
+                                System.out.println("Due date: " + dateFormat.format(currentDatePlus));
 
                                 task.setDueDate(currentDatePlus);
 
 
-                                System.out.println("Add a status for this task (enter an ID from list below):");
+                                System.out.println("Add a status for this task, enter status ID from list below:");
                                 statusData = HibernateQuery.getAllData(Status.class);
-                                for (Status s : statusData) {
-                                    System.out.println(s.getId() + " " + s.getName());
-                                }
+                                statusData.stream().forEach(System.out::println);
+
                                 boolean isNotSelected = true;
                                 do {
                                     System.out.println("your selection (by ID): ");
                                     keyboard.nextLine();
                                     int selectionS = keyboard.nextInt();
 
-                                    Status statusById = HibernateQuery.getStatusById(selectionS);
+                                    Status statusById = (Status) HibernateQuery.getObjectById(Status.class, selectionS);
                                     if (statusById != null && statusById.getId() > 0) {
                                         task.setStatus(statusById);
                                         isNotSelected = false;
@@ -257,16 +251,14 @@ public class Menu {
                                 //list of available tasks
                                 System.out.println("Choose a task from the list to associate the subtask with, enter task ID:");
                                 taskData = HibernateQuery.getAllData(Task.class);
-                                for (Task t : taskData) {
-                                    System.out.println(t.getId() + " " + t.getName());
-                                }
+                                taskData.stream().forEach(System.out::println);
 
                                 boolean taskNotSelected = true;
                                 do {
                                     System.out.println("your selection: ");
                                     Integer selection = keyboard.nextInt();
 
-                                    Task taskById = HibernateQuery.getTaskById(selection);
+                                    Task taskById = (Task) HibernateQuery.getObjectById(Task.class, selection);
                                     if (taskById != null) {
                                         subtask.setTask(taskById);
                                         taskNotSelected = false;
@@ -282,16 +274,28 @@ public class Menu {
 
                                 subtask.setCreated(new Date());
 
-                                System.out.println("please enter the due date (yyyy-MM-dd)");
-                                String dateString2 = keyboard.next();
-                                SimpleDateFormat formatter2 = new SimpleDateFormat("yyyy-MM-dd");
-                                Date date2 = formatter2.parse(dateString2);
-                                subtask.setDueDate(date2);
+                                System.out.println("Enter days required to finish task: ");
+                                int numOfDays = keyboard.nextInt();
+
+                                Date todayDate = new Date();
+                                System.out.println("Today's date: " + dateFormat.format(todayDate));
+
+                                // convert date to calendar
+                                Calendar cl = Calendar.getInstance();
+                                cl.setTime(todayDate);
+
+                                // manipulate date
+                                cl.add(Calendar.DAY_OF_MONTH, numOfDays);
+
+                                // convert calendar to date
+                                Date todayDatePlus = cl.getTime();
+
+                                System.out.println("Due date: " + dateFormat.format(todayDatePlus));
+
+                                subtask.setDueDate(todayDatePlus);
 
                                 System.out.println("Add a status with one of the following: ");
-                                for (Status s : statusData) {
-                                    System.out.println(s.getId() + " " + s.getName());
-                                }
+                                statusData.stream().forEach(System.out::println);
                                 boolean noSelection = true;
                                 do {
                                     System.out.println("your selection (enter ID): ");
@@ -299,7 +303,7 @@ public class Menu {
 
                                     int statusSelection = keyboard.nextInt();
 
-                                    Status statusById = HibernateQuery.getStatusById(statusSelection);
+                                    Status statusById = (Status) HibernateQuery.getObjectById(Status.class, statusSelection);
 
                                     if (statusById != null && statusById.getId() > 0) {
                                         subtask.setStatus(statusById);
@@ -324,13 +328,11 @@ public class Menu {
                                 do {
                                     System.out.println("your selection: ");
                                     Integer selection = keyboard.nextInt();
-                                    Project projectById = HibernateQuery.getProjectById(selection);
+                                    Project projectById = (Project) HibernateQuery.getObjectById(Project.class, selection);
                                     if (projectById != null) {
                                         List<Task> byProID = HibernateQuery.getByProID(projectById);
                                         if (byProID != null && byProID.size() > 0) {
-                                            for (Task task : byProID) {
-                                                System.out.println(task.getId() + " " + task.getName());
-                                            }
+                                            byProID.stream().forEach(System.out::println);
                                             notSelect = false;
                                         }
                                     }
@@ -343,7 +345,6 @@ public class Menu {
                                 for (Task task : byDate) {
                                     System.out.println(task.getId() + " " + task.getName() + " " + task.getProject().getName() + " " + task.getDueDate().toString().split(" ")[0]);
                                 }
-
                                 break;
 
                             case 8:  //filter projects and tasks by user
@@ -356,7 +357,7 @@ public class Menu {
                                 do {
                                     System.out.println("your selection: ");
                                     Integer uSelection = keyboard.nextInt();
-                                    User userById = HibernateQuery.getUserById(uSelection);
+                                    User userById = (User) HibernateQuery.getObjectById(User.class, uSelection);
                                     if (userById != null) {
                                         List<Task> byUserID = HibernateQuery.getByUserID(userById);
                                         if (byUserID != null && byUserID.size() > 0) {
@@ -370,6 +371,7 @@ public class Menu {
                                 } while (noUserSelect);
 
                                 break;
+
                             case 9: //edit tasks
                                 System.out.println("Choose a task to edit by entering the task id: ");
                                 taskData = HibernateQuery.getAllData(Task.class);
@@ -380,7 +382,7 @@ public class Menu {
                                 System.out.print("Your choice: ");
                                 Integer select = keyboard.nextInt();
 
-                                Task task1 = HibernateQuery.getTaskById(select);
+                                Task task1 = (Task) HibernateQuery.getObjectById(Task.class, select);
 
 
                                 System.out.println("What do you want to do: ");
@@ -391,9 +393,7 @@ public class Menu {
                                 Integer selection = keyboard.nextInt();
                                 if (selection == 1) {
                                     System.out.println("Update the status with one of the following: ");
-                                    for (Status s : statusData) {
-                                        System.out.println(s.getId() + " " + s.getName());
-                                    }
+                                    statusData.stream().forEach(System.out::println);
 
                                     boolean statusNoSelection = true;
                                     do {
@@ -402,7 +402,7 @@ public class Menu {
 
                                         int statusSelection = keyboard.nextInt();
 
-                                        Status statusById = HibernateQuery.getStatusById(statusSelection);
+                                        Status statusById = (Status) HibernateQuery.getObjectById(Status.class, statusSelection);
 
                                         if (statusById != null && statusById.getId() > 0) {
                                             task1.setStatus(statusById);
@@ -439,13 +439,11 @@ public class Menu {
             boolean isValid = false;
             do {
                 System.out.println("Enter your email");
-
                 String email = keyboard.nextLine();
-                //need to customize validation here
-                //if (validation.validateEmail(email)) {
+                if (validation.validateEmail(email)) {
                 user.setEmail(email);
                 isValid = true;
-                // }
+                 }
             } while (!isValid);
 
             System.out.println("Enter your first name");
@@ -495,4 +493,6 @@ public class Menu {
         System.out.print("Your choice: ");
         return keyboard.nextInt();
     }
+
+
 }

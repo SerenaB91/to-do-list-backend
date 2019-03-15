@@ -24,20 +24,21 @@ public class User implements Serializable {
     @Column(name = "role")
     private String userRole;
 
-    public User(){}
+    public User() {
+    }
 
-    public User(String email, String firstName, String lastName, String password){
+    public User(String email, String firstName, String lastName, String password) {
         this.email = email;
         this.firstName = firstName;
         this.lastName = lastName;
         this.password = password;
     }
 
-    public int getId(){
+    public int getId() {
         return id;
     }
 
-    public void setId(int id){
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -45,7 +46,7 @@ public class User implements Serializable {
         return email;
     }
 
-    public void setEmail(String email){
+    public void setEmail(String email) {
         this.email = email;
     }
 
@@ -53,7 +54,7 @@ public class User implements Serializable {
         return firstName;
     }
 
-    public void setFirstName(String firstName){
+    public void setFirstName(String firstName) {
         this.firstName = firstName;
     }
 
@@ -61,7 +62,7 @@ public class User implements Serializable {
         return lastName;
     }
 
-    public void setLastName(String lastName){
+    public void setLastName(String lastName) {
         this.lastName = lastName;
     }
 
@@ -69,7 +70,7 @@ public class User implements Serializable {
         return password;
     }
 
-    public void setPassword(String password){
+    public void setPassword(String password) {
         this.password = password;
     }
 
@@ -81,7 +82,9 @@ public class User implements Serializable {
         this.creationDate = creationDate;
     }
 
-    public String getRole() { return userRole; }
+    public String getRole() {
+        return userRole;
+    }
 
     public void setRole(String userRole) {
         this.userRole = userRole;

@@ -43,9 +43,9 @@ public class TestRunner {
         assertEquals(HibernateQuery.validateLogin(user.getEmail(), user.getPassword()), true);
     }
 
-    @Test
+   /* @Test
     public void testDeleteUser(){
         HibernateQuery.deleteUser("me@gmail.com", "123");
         assertEquals(HibernateQuery.validateLogin("me@gmail.com", "123"), false);
-    }
+    }*/
 }

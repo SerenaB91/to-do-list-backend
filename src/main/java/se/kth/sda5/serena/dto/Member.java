@@ -19,9 +19,10 @@ public class Member implements Serializable {
     @Column(name = "owner")
     private boolean owner;
 
-    public Member(){}
+    public Member() {
+    }
 
-    public Member(boolean owner){
+    public Member(boolean owner) {
         this.owner = owner;
     }
 
@@ -33,7 +34,7 @@ public class Member implements Serializable {
         this.id = id;
     }
 
-    public User getUser(){
+    public User getUser() {
         return user;
     }
 

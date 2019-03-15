@@ -5,7 +5,7 @@ import java.io.Serializable;
 import java.util.Date;
 
 @Entity
-public class Subtask implements Serializable{
+public class Subtask implements Serializable {
 
     @Id
     @Column(name = "subtask_id")
@@ -20,17 +20,18 @@ public class Subtask implements Serializable{
     @ManyToOne
     @JoinColumn(name = "status_id")
     private Status status;
-    @ManyToOne(fetch = FetchType.EAGER,cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "task_id")
     private Task task;
 
-    public Subtask(){}
+    public Subtask() {
+    }
 
-    public Subtask(String name){
+    public Subtask(String name) {
         this.name = name;
     }
 
-    public int getId(){
+    public int getId() {
         return id;
     }
 
@@ -38,11 +39,11 @@ public class Subtask implements Serializable{
         this.id = id;
     }
 
-    public String getName(){
+    public String getName() {
         return name;
     }
 
-    public void setName(String name){
+    public void setName(String name) {
         this.name = name;
     }
 
@@ -54,11 +55,11 @@ public class Subtask implements Serializable{
         this.creationDate = creationDate;
     }
 
-    public Date getDueDate(){
+    public Date getDueDate() {
         return dueDate;
     }
 
-    public void setDueDate(Date dueDate){
+    public void setDueDate(Date dueDate) {
         this.dueDate = dueDate;
     }
 
