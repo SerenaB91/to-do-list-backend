@@ -1,29 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="7af7c7ae-f807-4b05-bba8-e0cf48af8976" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/se/kth/sda5/serena/dto/Member.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/se/kth/sda5/serena/dto/Member.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/se/kth/sda5/serena/dto/Status.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/se/kth/sda5/serena/dto/Status.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/se/kth/sda5/serena/dto/Subtask.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/se/kth/sda5/serena/dto/Subtask.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/se/kth/sda5/serena/dto/Task.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/se/kth/sda5/serena/dto/Task.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/se/kth/sda5/serena/dto/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/se/kth/sda5/serena/dto/User.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/se/kth/sda5/serena/hibernate/util/HibernateQuery.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/se/kth/sda5/serena/hibernate/util/HibernateQuery.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/se/kth/sda5/serena/hibernate/util/HibernateSessionFactory.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/se/kth/sda5/serena/hibernate/util/HibernateSessionFactory.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/se/kth/sda5/serena/hibernate/util/Validation.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/se/kth/sda5/serena/hibernate/util/Validation.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/se/kth/sda5/serena/todo/program/MainProgram.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/se/kth/sda5/serena/todo/program/MainProgram.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/se/kth/sda5/serena/todo/program/Menu.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/se/kth/sda5/serena/todo/program/Menu.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/TestRunner.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/TestRunner.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/se/kth/sda5/serena/dto/Member.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/se/kth/sda5/serena/dto/Member.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/se/kth/sda5/serena/dto/Project.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/se/kth/sda5/serena/dto/Project.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/se/kth/sda5/serena/dto/Status.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/se/kth/sda5/serena/dto/Status.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/se/kth/sda5/serena/dto/Subtask.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/se/kth/sda5/serena/dto/Subtask.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/se/kth/sda5/serena/dto/Task.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/se/kth/sda5/serena/dto/Task.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/se/kth/sda5/serena/dto/User.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/se/kth/sda5/serena/dto/User.class" afterDir="false" />
-    </list>
+    <list default="true" id="7af7c7ae-f807-4b05-bba8-e0cf48af8976" name="Default Changelist" comment="" />
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/target/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -37,10 +15,10 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/se/kth/sda5/serena/todo/program/Menu.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="602">
+            <state relative-caret-position="365">
               <caret line="394" column="104" selection-start-line="394" selection-start-column="104" selection-end-line="394" selection-end-column="104" />
               <folding>
                 <element signature="imports" expanded="true" />
@@ -73,7 +51,7 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/resources/hibernate.cfg.xml">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="165">
@@ -190,7 +168,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
+      <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -279,7 +257,7 @@
           <select />
         </subPane>
       </pane>
-      <pane id="PackagesPane" />
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -414,6 +392,7 @@
       <workItem from="1552626597826" duration="1069000" />
       <workItem from="1552634014121" duration="1717000" />
       <workItem from="1552638687654" duration="165000" />
+      <workItem from="1552642741826" duration="520000" />
     </task>
     <servers />
   </component>
@@ -450,7 +429,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="201885000" />
+    <option name="totallyTimeSpent" value="202405000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -464,7 +443,7 @@
   <component name="ToolWindowManager">
     <frame x="40" y="28" width="1400" height="774" extended-state="0" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.49896482" visible="true" weight="0.21870397" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.49896482" visible="true" weight="0.22164948" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Designer" order="2" />
       <window_info id="Persistence" order="3" side_tool="true" />
@@ -664,16 +643,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/se/kth/sda5/serena/todo/program/Menu.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="602">
-          <caret line="394" column="104" selection-start-line="394" selection-start-column="104" selection-end-line="394" selection-end-column="104" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/se/kth/sda5/serena/dto/Task.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1815">
@@ -730,6 +699,16 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="165">
           <caret line="11" column="44" selection-start-line="11" selection-start-column="44" selection-end-line="11" selection-end-column="44" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/se/kth/sda5/serena/todo/program/Menu.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="365">
+          <caret line="394" column="104" selection-start-line="394" selection-start-column="104" selection-end-line="394" selection-end-column="104" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
