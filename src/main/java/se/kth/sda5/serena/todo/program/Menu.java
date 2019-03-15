@@ -53,351 +53,267 @@ public class Menu {
                                 System.out.println("Bye!");
                                 break;
                             case 1:  //add a new user
-                                List<User> userInfo = new ArrayList<User>();
+                                if (loginUser.getRole().equals("1")) {
+                                    List<User> userInfo = new ArrayList<User>();
 
-                                boolean isValid = false;
-                                do {
-                                    System.out.println("Enter your email (example@something.com):");
-                                    keyboard.nextLine();
-                                    String email = keyboard.nextLine();
-                                    if (validation.validateEmail(email)) {
-                                        user.setEmail(email);
-                                        isValid = true;
-                                    }
-                                } while (!isValid);
+                                    boolean isValid = false;
+                                    do {
+                                        System.out.println("Enter your email (example@something.com):");
+                                        keyboard.nextLine();
+                                        String email = keyboard.nextLine();
+                                        if (validation.validateEmail(email)) {
+                                            user.setEmail(email);
+                                            isValid = true;
+                                        }
+                                    } while (!isValid);
 
-                                System.out.println("Enter your first name:");
-                                String firstName = keyboard.nextLine();
-                                user.setFirstName(firstName);
+                                    System.out.println("Enter your first name:");
+                                    String firstName = keyboard.nextLine();
+                                    user.setFirstName(firstName);
 
-                                System.out.println("Enter your last name:");
-                                String lastName = keyboard.nextLine();
-                                user.setLastName(lastName);
+                                    System.out.println("Enter your last name:");
+                                    String lastName = keyboard.nextLine();
+                                    user.setLastName(lastName);
 
-                                System.out.println("Enter your password:");
-                                String password = keyboard.nextLine();
-                                user.setPassword(password);
+                                    System.out.println("Enter your password:");
+                                    String password = keyboard.nextLine();
+                                    user.setPassword(password);
 
-                                System.out.println("What is this user's role? Enter 1 for administrator, 2 for project manager or 3 for employee: ");
-                                String projOwner = keyboard.nextLine();
-                                user.setRole(projOwner);
+                                    System.out.println("What is this user's role? Enter 1 for administrator, 2 for project manager or 3 for employee: ");
+                                    String projOwner = keyboard.nextLine();
+                                    user.setRole(projOwner);
 
-                                user.setCreated(new Date());
+                                    user.setCreated(new Date());
 
-                                userInfo.add(user);
-                                HibernateQuery.addObject(User.class, user);
+                                    userInfo.add(user);
+                                    HibernateQuery.addObject(User.class, user);
 
+                                } else {
+                                    System.out.println("You do not have access to this menu option.");
+                                }
                                 break;
 
                             case 2:  //add a new project
-                                List<Project> projectInfo = new ArrayList<Project>();
+                                if (loginUser.getRole().equals("2")) {
+                                    List<Project> projectInfo = new ArrayList<Project>();
 
-                                System.out.println("Enter the project name: ");
-                                keyboard.nextLine();
-                                String name = keyboard.nextLine();
-                                project.setName(name);
+                                    System.out.println("Enter the project name: ");
+                                    keyboard.nextLine();
+                                    String name = keyboard.nextLine();
+                                    project.setName(name);
 
-                                System.out.println("Enter project description: ");
-                                String description = keyboard.nextLine();
-                                project.setDescription(description);
+                                    System.out.println("Enter project description: ");
+                                    String description = keyboard.nextLine();
+                                    project.setDescription(description);
 
-                                //associate user to the project
-                                System.out.println("Choose a user to associate with this project, enter user ID from the list: ");
-                                userData = HibernateQuery.getAllData(User.class);
-                                for (User u : userData) {
-                                    System.out.println(u.getId() + " " + u.getFirstName() + " " + u.getLastName());
-                                }
-                                boolean userNotSelected1 = true;
-                                do {
-                                    System.out.println("your selection: ");
-                                    Integer userSelection = keyboard.nextInt();
-
-                                    for (User user : userData) {
-                                        if (userSelection == user.getId()) {
-                                            project.setUser(user);
-                                            member.setUser(user);
-                                            userNotSelected1 = false;
-                                            break;
-                                        }
+                                    //associate user to the project
+                                    System.out.println("Choose a user to associate with this project, enter user ID from the list: ");
+                                    userData = HibernateQuery.getAllData(User.class);
+                                    for (User u : userData) {
+                                        System.out.println(u.getId() + " " + u.getFirstName() + " " + u.getLastName());
                                     }
-                                } while (userNotSelected1);
+                                    boolean userNotSelected1 = true;
+                                    do {
+                                        System.out.println("your selection: ");
+                                        Integer userSelection = keyboard.nextInt();
 
-                                project.setCreated(new Date());
+                                        for (User user : userData) {
+                                            if (userSelection == user.getId()) {
+                                                project.setUser(user);
+                                                member.setUser(user);
+                                                userNotSelected1 = false;
+                                                break;
+                                            }
+                                        }
+                                    } while (userNotSelected1);
 
-                                System.out.println("is this user the project owner? enter true or false: ");
-                                boolean isOwner = keyboard.nextBoolean();
-                                member.setOwner(isOwner);
+                                    project.setCreated(new Date());
+
+                                    System.out.println("is this user the project owner? enter true or false: ");
+                                    boolean isOwner = keyboard.nextBoolean();
+                                    member.setOwner(isOwner);
 
 
-                                projectInfo.add(project);
-                                member.setProject(project);
-                                HibernateQuery.addObject(Project.class, project);
-                                HibernateQuery.addObject(Member.class, member);
+                                    projectInfo.add(project);
+                                    member.setProject(project);
+                                    HibernateQuery.addObject(Project.class, project);
+                                    HibernateQuery.addObject(Member.class, member);
+                                } else {
+                                    System.out.println("You do not have access to this menu option.");
+                                }
                                 break;
 
                             case 3:  //add statuses
-                                List<Status> statusInfo = new ArrayList<Status>();
+                                if (loginUser.getRole().equals("1")) {
+                                    List<Status> statusInfo = new ArrayList<Status>();
 
-                                System.out.println("Add a valid status  to be used by project managers and employees: ");
-                                keyboard.nextLine();
-                                String statusName = keyboard.nextLine();
-                                status.setName(statusName);
+                                    System.out.println("Add a valid status  to be used by project managers and employees: ");
+                                    keyboard.nextLine();
+                                    String statusName = keyboard.nextLine();
+                                    status.setName(statusName);
 
-                                statusInfo.add(status);
-                                HibernateQuery.addObject(Status.class, status);
+                                    statusInfo.add(status);
+                                    HibernateQuery.addObject(Status.class, status);
+                                } else {
+                                    System.out.println("You do not have access to this menu option.");
+                                }
                                 break;
 
                             case 4:  //add task
+                                if (loginUser.getRole().equals("2") || loginUser.getRole().equals("3")) {
+                                    List<Task> taskInfo = new ArrayList<Task>();
+                                    //list of available projects
+                                    System.out.println("Choose a project from the list to associate the task with, enter project ID:");
+                                    allData = HibernateQuery.getAllData(Project.class);
 
-                                List<Task> taskInfo = new ArrayList<Task>();
-                                //list of available projects
-                                System.out.println("Choose a project from the list to associate the task with, enter project ID:");
-                                allData = HibernateQuery.getAllData(Project.class);
-
-                                for (Project p : allData) {
-                                    System.out.println(p.getId() + " " + p.getName());
-                                }
-                                boolean isNotSelect = true;
-                                do {
-                                    System.out.println("your selection: ");
-                                    Integer selection = keyboard.nextInt();
-
-                                    for (Project project : allData) {
-                                        if (selection == project.getId()) {
-                                            task.setProject(project);
-                                            isNotSelect = false;
-                                            break;
-                                        }
+                                    for (Project p : allData) {
+                                        System.out.println(p.getId() + " " + p.getName());
                                     }
-                                } while (isNotSelect);
+                                    boolean isNotSelect = true;
+                                    do {
+                                        System.out.println("your selection: ");
+                                        Integer selection = keyboard.nextInt();
 
-                                //associate user to task
-                                System.out.println("Choose a user to associate with this task, enter user ID from the list: ");
-                                userData = HibernateQuery.getAllData(User.class);
-                                for (User u : userData) {
-                                    System.out.println(u.getId() + " " + u.getFirstName() + " " + u.getLastName());
-                                }
-                                boolean userNotSelected = true;
-                                do {
-                                    System.out.println("your selection: ");
-                                    Integer userSelection = keyboard.nextInt();
-
-                                    for (User user : userData) {
-                                        if (userSelection == user.getId()) {
-                                            task.setUser(user);
-                                            userNotSelected = false;
-                                            break;
+                                        for (Project project : allData) {
+                                            if (selection == project.getId()) {
+                                                task.setProject(project);
+                                                isNotSelect = false;
+                                                break;
+                                            }
                                         }
+                                    } while (isNotSelect);
+
+                                    //associate user to task
+                                    System.out.println("Choose a user to associate with this task, enter user ID from the list: ");
+                                    userData = HibernateQuery.getAllData(User.class);
+                                    for (User u : userData) {
+                                        System.out.println(u.getId() + " " + u.getFirstName() + " " + u.getLastName());
                                     }
-                                } while (userNotSelected);
+                                    boolean userNotSelected = true;
+                                    do {
+                                        System.out.println("your selection: ");
+                                        Integer userSelection = keyboard.nextInt();
 
-                                System.out.println("Enter a task name: ");
-                                keyboard.nextLine();
-                                String taskName = keyboard.nextLine();
-                                task.setName(taskName);
+                                        for (User user : userData) {
+                                            if (userSelection == user.getId()) {
+                                                task.setUser(user);
+                                                userNotSelected = false;
+                                                break;
+                                            }
+                                        }
+                                    } while (userNotSelected);
 
-                                System.out.println("Enter a task description: ");
-                                String taskDescription = keyboard.nextLine();
-                                task.setDescription(taskDescription);
-
-                                task.setCreated(new Date());
-
-                                System.out.println("Enter days required to finish task: ");
-                                int numberOfDays = keyboard.nextInt();
-
-                                Date currentDate = new Date();
-                                System.out.println("Today's date: " + dateFormat.format(currentDate));
-
-                                // convert date to calendar
-                                Calendar c = Calendar.getInstance();
-                                c.setTime(currentDate);
-
-                                // manipulate date
-                                c.add(Calendar.DAY_OF_MONTH, numberOfDays);
-
-                                // convert calendar to date
-                                Date currentDatePlus = c.getTime();
-
-                                System.out.println("Due date: " + dateFormat.format(currentDatePlus));
-
-                                task.setDueDate(currentDatePlus);
-
-
-                                System.out.println("Add a status for this task, enter status ID from list below:");
-                                statusData = HibernateQuery.getAllData(Status.class);
-                                statusData.stream().forEach(System.out::println);
-
-                                boolean isNotSelected = true;
-                                do {
-                                    System.out.println("your selection (by ID): ");
+                                    System.out.println("Enter a task name: ");
                                     keyboard.nextLine();
-                                    int selectionS = keyboard.nextInt();
+                                    String taskName = keyboard.nextLine();
+                                    task.setName(taskName);
 
-                                    Status statusById = (Status) HibernateQuery.getObjectById(Status.class, selectionS);
-                                    if (statusById != null && statusById.getId() > 0) {
-                                        task.setStatus(statusById);
-                                        isNotSelected = false;
-                                        break;
-                                    }
-                                } while (isNotSelected);
+                                    System.out.println("Enter a task description: ");
+                                    String taskDescription = keyboard.nextLine();
+                                    task.setDescription(taskDescription);
 
-                                taskInfo.add(task);
-                                HibernateQuery.addObject(Task.class, task);
+                                    task.setCreated(new Date());
+
+                                    System.out.println("Enter days required to finish task: ");
+                                    int numberOfDays = keyboard.nextInt();
+
+                                    Date currentDate = new Date();
+                                    System.out.println("Today's date: " + dateFormat.format(currentDate));
+
+                                    // convert date to calendar
+                                    Calendar c = Calendar.getInstance();
+                                    c.setTime(currentDate);
+
+                                    // manipulate date
+                                    c.add(Calendar.DAY_OF_MONTH, numberOfDays);
+
+                                    // convert calendar to date
+                                    Date currentDatePlus = c.getTime();
+
+                                    System.out.println("Due date: " + dateFormat.format(currentDatePlus));
+
+                                    task.setDueDate(currentDatePlus);
+
+
+                                    System.out.println("Add a status for this task, enter status ID from list below:");
+                                    statusData = HibernateQuery.getAllData(Status.class);
+                                    statusData.stream().forEach(System.out::println);
+
+                                    boolean isNotSelected = true;
+                                    do {
+                                        System.out.println("your selection (by ID): ");
+                                        keyboard.nextLine();
+                                        int selectionS = keyboard.nextInt();
+
+                                        Status statusById = (Status) HibernateQuery.getObjectById(Status.class, selectionS);
+                                        if (statusById != null && statusById.getId() > 0) {
+                                            task.setStatus(statusById);
+                                            isNotSelected = false;
+                                            break;
+                                        }
+                                    } while (isNotSelected);
+
+                                    taskInfo.add(task);
+                                    HibernateQuery.addObject(Task.class, task);
+                                } else {
+                                    System.out.println("You do not have access to this menu option.");
+                                }
                                 break;
 
                             case 5:  //create a subtask
+                                if (loginUser.getRole().equals("2") || loginUser.getRole().equals("3")) {
+                                    List<Subtask> subtaskInfo = new ArrayList<Subtask>();
+                                    //list of available tasks
+                                    System.out.println("Choose a task from the list to associate the subtask with, enter task ID:");
+                                    taskData = HibernateQuery.getAllData(Task.class);
+                                    taskData.stream().forEach(System.out::println);
 
-                                List<Subtask> subtaskInfo = new ArrayList<Subtask>();
-                                //list of available tasks
-                                System.out.println("Choose a task from the list to associate the subtask with, enter task ID:");
-                                taskData = HibernateQuery.getAllData(Task.class);
-                                taskData.stream().forEach(System.out::println);
-
-                                boolean taskNotSelected = true;
-                                do {
-                                    System.out.println("your selection: ");
-                                    Integer selection = keyboard.nextInt();
-
-                                    Task taskById = (Task) HibernateQuery.getObjectById(Task.class, selection);
-                                    if (taskById != null) {
-                                        subtask.setTask(taskById);
-                                        taskNotSelected = false;
-                                        break;
-                                    }
-
-                                } while (taskNotSelected);
-
-                                System.out.println("Enter a subtask name: ");
-                                keyboard.nextLine();
-                                String subaskName = keyboard.nextLine();
-                                subtask.setName(subaskName);
-
-                                subtask.setCreated(new Date());
-
-                                System.out.println("Enter days required to finish task: ");
-                                int numOfDays = keyboard.nextInt();
-
-                                Date todayDate = new Date();
-                                System.out.println("Today's date: " + dateFormat.format(todayDate));
-
-                                // convert date to calendar
-                                Calendar cl = Calendar.getInstance();
-                                cl.setTime(todayDate);
-
-                                // manipulate date
-                                cl.add(Calendar.DAY_OF_MONTH, numOfDays);
-
-                                // convert calendar to date
-                                Date todayDatePlus = cl.getTime();
-
-                                System.out.println("Due date: " + dateFormat.format(todayDatePlus));
-
-                                subtask.setDueDate(todayDatePlus);
-
-                                System.out.println("Add a status with one of the following: ");
-                                statusData.stream().forEach(System.out::println);
-                                boolean noSelection = true;
-                                do {
-                                    System.out.println("your selection (enter ID): ");
-                                    keyboard.nextLine();
-
-                                    int statusSelection = keyboard.nextInt();
-
-                                    Status statusById = (Status) HibernateQuery.getObjectById(Status.class, statusSelection);
-
-                                    if (statusById != null && statusById.getId() > 0) {
-                                        subtask.setStatus(statusById);
-                                        noSelection = false;
-                                        break;
-                                    }
-                                } while (noSelection);
-
-                                subtaskInfo.add(subtask);
-                                HibernateQuery.addObject(Subtask.class, subtask);
-                                break;
-
-                            case 6:  //filter tasks by project
-                                System.out.println("Filter tasks list by project");
-                                System.out.println("Select a project to view its tasks: ");
-
-                                allData = HibernateQuery.getAllData(Project.class);
-                                for (Project p : allData) {
-                                    System.out.println(p.getId() + " " + p.getName());
-                                }
-                                boolean notSelect = true;
-                                do {
-                                    System.out.println("your selection: ");
-                                    Integer selection = keyboard.nextInt();
-                                    Project projectById = (Project) HibernateQuery.getObjectById(Project.class, selection);
-                                    if (projectById != null) {
-                                        List<Task> byProID = HibernateQuery.getByProID(projectById);
-                                        if (byProID != null && byProID.size() > 0) {
-                                            byProID.stream().forEach(System.out::println);
-                                            notSelect = false;
-                                        }
-                                    }
-                                } while (notSelect);
-                                break;
-
-                            case 7:  //sort tasks  by due date
-                                System.out.println("Tasks filtered by due date: ");
-                                List<Task> byDate = HibernateQuery.getByDate(task);
-                                for (Task task : byDate) {
-                                    System.out.println(task.getId() + " " + task.getName() + " " + task.getProject().getName() + " " + task.getDueDate().toString().split(" ")[0]);
-                                }
-                                break;
-
-                            case 8:  //filter projects and tasks by user
-                                System.out.println("Please select a user to view its tasks and projects: ");
-                                userData = HibernateQuery.getAllData(User.class);
-                                for (User u : userData) {
-                                    System.out.println(u.getId() + " " + u.getFirstName() + " " + u.getLastName());
-                                }
-                                boolean noUserSelect = true;
-                                do {
-                                    System.out.println("your selection: ");
-                                    Integer uSelection = keyboard.nextInt();
-                                    User userById = (User) HibernateQuery.getObjectById(User.class, uSelection);
-                                    if (userById != null) {
-                                        List<Task> byUserID = HibernateQuery.getByUserID(userById);
-                                        if (byUserID != null && byUserID.size() > 0) {
-                                            for (Task task : byUserID) {
-                                                System.out.println(task.getUser().getFirstName() + "'s tasks: ");
-                                                System.out.println("task: " + task.getName() + ", task description: " + task.getDescription() + ", due: " + task.getDueDate().toString().split(" ")[0] + ", project: " + task.getProject().getName());
-                                            }
-                                            noUserSelect = false;
-                                        }
-                                    }
-                                } while (noUserSelect);
-
-                                break;
-
-                            case 9: //edit tasks
-                                System.out.println("Choose a task to edit by entering the task id: ");
-                                taskData = HibernateQuery.getAllData(Task.class);
-                                for (Task t : taskData) {
-                                    System.out.println(t.getId() + " " + t.getName() + " " + t.getDescription() + " " + t.getStatus().getName() + " " + t.getCreated().toString().split(" ")[0] + " " + t.getDueDate().toString().split(" ")[0]);
-                                }
-
-                                System.out.print("Your choice: ");
-                                Integer select = keyboard.nextInt();
-
-                                Task task1 = (Task) HibernateQuery.getObjectById(Task.class, select);
-
-
-                                System.out.println("What do you want to do: ");
-                                System.out.println("1. update task status");
-                                System.out.println("2. remove");
-
-                                System.out.print("Your choice: ");
-                                Integer selection = keyboard.nextInt();
-                                if (selection == 1) {
-                                    System.out.println("Update the status with one of the following: ");
-                                    statusData.stream().forEach(System.out::println);
-
-                                    boolean statusNoSelection = true;
+                                    boolean taskNotSelected = true;
                                     do {
-                                        System.out.println("your selection: by ID");
+                                        System.out.println("your selection: ");
+                                        Integer selection = keyboard.nextInt();
+
+                                        Task taskById = (Task) HibernateQuery.getObjectById(Task.class, selection);
+                                        if (taskById != null) {
+                                            subtask.setTask(taskById);
+                                            taskNotSelected = false;
+                                            break;
+                                        }
+
+                                    } while (taskNotSelected);
+
+                                    System.out.println("Enter a subtask name: ");
+                                    keyboard.nextLine();
+                                    String subaskName = keyboard.nextLine();
+                                    subtask.setName(subaskName);
+
+                                    subtask.setCreated(new Date());
+
+                                    System.out.println("Enter days required to finish task: ");
+                                    int numOfDays = keyboard.nextInt();
+
+                                    Date todayDate = new Date();
+                                    System.out.println("Today's date: " + dateFormat.format(todayDate));
+
+                                    // convert date to calendar
+                                    Calendar cl = Calendar.getInstance();
+                                    cl.setTime(todayDate);
+
+                                    // manipulate date
+                                    cl.add(Calendar.DAY_OF_MONTH, numOfDays);
+
+                                    // convert calendar to date
+                                    Date todayDatePlus = cl.getTime();
+
+                                    System.out.println("Due date: " + dateFormat.format(todayDatePlus));
+
+                                    subtask.setDueDate(todayDatePlus);
+
+                                    System.out.println("Add a status with one of the following: ");
+                                    statusData.stream().forEach(System.out::println);
+                                    boolean noSelection = true;
+                                    do {
+                                        System.out.println("your selection (enter ID): ");
                                         keyboard.nextLine();
 
                                         int statusSelection = keyboard.nextInt();
@@ -405,15 +321,133 @@ public class Menu {
                                         Status statusById = (Status) HibernateQuery.getObjectById(Status.class, statusSelection);
 
                                         if (statusById != null && statusById.getId() > 0) {
-                                            task1.setStatus(statusById);
-                                            HibernateQuery.updateStatus(task1);
-                                            statusNoSelection = false;
+                                            subtask.setStatus(statusById);
+                                            noSelection = false;
                                             break;
                                         }
-                                    } while (statusNoSelection);
-                                } else if (selection == 2) {
-                                    HibernateQuery.deleteTask(task1.getId());
-                                    break;
+                                    } while (noSelection);
+
+                                    subtaskInfo.add(subtask);
+                                    HibernateQuery.addObject(Subtask.class, subtask);
+                                } else {
+                                    System.out.println("You do not have access to this menu option.");
+                                }
+                                break;
+
+                            case 6:  //filter tasks by project
+                                if (loginUser.getRole().equals("2") || loginUser.getRole().equals("3")) {
+                                    System.out.println("Filter tasks list by project");
+                                    System.out.println("Select a project to view its tasks: ");
+
+                                    allData = HibernateQuery.getAllData(Project.class);
+                                    for (Project p : allData) {
+                                        System.out.println(p.getId() + " " + p.getName());
+                                    }
+                                    boolean notSelect = true;
+                                    do {
+                                        System.out.println("your selection: ");
+                                        Integer selection = keyboard.nextInt();
+                                        Project projectById = (Project) HibernateQuery.getObjectById(Project.class, selection);
+                                        if (projectById != null) {
+                                            List<Task> byProID = HibernateQuery.getByProID(projectById);
+                                            if (byProID != null && byProID.size() > 0) {
+                                                byProID.stream().forEach(System.out::println);
+                                                notSelect = false;
+                                            }
+                                        }
+                                    } while (notSelect);
+                                } else {
+                                    System.out.println("You do not have access to this menu option.");
+                                }
+                                break;
+
+                            case 7:  //sort tasks  by due date
+                                if (loginUser.getRole().equals("2") || loginUser.getRole().equals("3")) {
+                                    System.out.println("Tasks filtered by due date: ");
+                                    List<Task> byDate = HibernateQuery.getByDate(task);
+                                    for (Task task : byDate) {
+                                        System.out.println(task.getId() + " " + task.getName() + " " + task.getProject().getName() + " " + task.getDueDate().toString().split(" ")[0]);
+                                    }
+                                } else {
+                                    System.out.println("You do not have access to this menu option.");
+                                }
+                                break;
+
+                            case 8:  //filter projects and tasks by user
+                                if (loginUser.getRole().equals("2")) {
+                                    System.out.println("Please select a user to view its tasks and projects: ");
+                                    userData = HibernateQuery.getAllData(User.class);
+                                    for (User u : userData) {
+                                        System.out.println(u.getId() + " " + u.getFirstName() + " " + u.getLastName());
+                                    }
+                                    boolean noUserSelect = true;
+                                    do {
+                                        System.out.println("your selection: ");
+                                        Integer uSelection = keyboard.nextInt();
+                                        User userById = (User) HibernateQuery.getObjectById(User.class, uSelection);
+                                        if (userById != null) {
+                                            List<Task> byUserID = HibernateQuery.getByUserID(userById);
+                                            if (byUserID != null && byUserID.size() > 0) {
+                                                for (Task task : byUserID) {
+                                                    System.out.println(task.getUser().getFirstName() + "'s tasks: ");
+                                                    System.out.println("task: " + task.getName() + ", task description: " + task.getDescription() + ", due: " + task.getDueDate().toString().split(" ")[0] + ", project: " + task.getProject().getName());
+                                                }
+                                                noUserSelect = false;
+                                            }
+                                        }
+                                    } while (noUserSelect);
+
+                                } else {
+                                    System.out.println("You do not have access to this menu option.");
+                                }
+                                break;
+
+                            case 9: //edit tasks
+                                if (loginUser.getRole().equals("2") || loginUser.getRole().equals("3")) {
+                                    System.out.println("Choose a task to edit by entering the task id: ");
+                                    taskData = HibernateQuery.getAllData(Task.class);
+                                    for (Task t : taskData) {
+                                        System.out.println(t.getId() + " " + t.getName() + " " + t.getDescription() + " " + t.getStatus().getName() + " " + t.getCreated().toString().split(" ")[0] + " " + t.getDueDate().toString().split(" ")[0]);
+                                    }
+
+                                    System.out.print("Your choice: ");
+                                    Integer select = keyboard.nextInt();
+
+                                    Task task1 = (Task) HibernateQuery.getObjectById(Task.class, select);
+
+
+                                    System.out.println("What do you want to do: ");
+                                    System.out.println("1. update task status");
+                                    System.out.println("2. remove");
+
+                                    System.out.print("Your choice: ");
+                                    Integer selection = keyboard.nextInt();
+                                    if (selection == 1) {
+                                        System.out.println("Update the status with one of the following: ");
+                                        statusData.stream().forEach(System.out::println);
+
+                                        boolean statusNoSelection = true;
+                                        do {
+                                            System.out.println("your selection: by ID");
+                                            keyboard.nextLine();
+
+                                            int statusSelection = keyboard.nextInt();
+
+                                            Status statusById = (Status) HibernateQuery.getObjectById(Status.class, statusSelection);
+
+                                            if (statusById != null && statusById.getId() > 0) {
+                                                task1.setStatus(statusById);
+                                                HibernateQuery.updateStatus(task1);
+                                                statusNoSelection = false;
+                                                break;
+                                            }
+                                        } while (statusNoSelection);
+                                    } else if (selection == 2) {
+                                        HibernateQuery.deleteTask(task1.getId());
+                                        break;
+                                    }
+                                } else {
+                                    System.out.println("You do not have access to this menu option.");
                                 }
                                 break;
 
@@ -441,9 +475,9 @@ public class Menu {
                 System.out.println("Enter your email");
                 String email = keyboard.nextLine();
                 if (validation.validateEmail(email)) {
-                user.setEmail(email);
-                isValid = true;
-                 }
+                    user.setEmail(email);
+                    isValid = true;
+                }
             } while (!isValid);
 
             System.out.println("Enter your first name");
